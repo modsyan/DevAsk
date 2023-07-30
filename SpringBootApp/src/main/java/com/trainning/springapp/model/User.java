@@ -2,6 +2,8 @@ package com.trainning.springapp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -16,8 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private int Id;
-
+    private long Id;
     @Column(nullable = false)
     private String Firstname;
     @Column(nullable = false)
@@ -33,9 +34,10 @@ public class User {
     private byte[] ProfilePicture;
     @DateTimeFormat
     @Setter(AccessLevel.NONE)
+    @CreatedDate
     private Date CreatedAt;
     @DateTimeFormat
     @Setter(AccessLevel.NONE)
+    @LastModifiedDate
     private Date UpdateAt;
-    //TODO: Update UpdatedAt Trigger
 }

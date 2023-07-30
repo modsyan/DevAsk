@@ -1,62 +1,55 @@
 package com.trainning.springapp.controller;
 
-import com.trainning.springapp.model.Post;
+import com.trainning.springapp.dto.requset.CreateEditPostRequest;
+import com.trainning.springapp.dto.response.PostResponse;
+import com.trainning.springapp.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostController {
+    private final PostService _postService;
+
+    @Autowired
+    public PostController(PostService postService) {
+        _postService = postService;
+    }
 
     @GetMapping()
-    public ResponseEntity<List<Post>> GetAll() {
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post(1, 1, "this is title", "content", false, new Date(), new Date()));
-        posts.add(new Post(2, 1, "this is title", "content", false, new Date(), new Date()));
-        return ResponseEntity.ok(posts);
+    public ResponseEntity<List<PostResponse>> GetAll() {
+        List<PostResponse> response = _postService.GetAll();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Post GetDetail(@PathVariable int id) {
-        return new Post(id, 1, "this is title", "content", false, new Date(), new Date());
+    public PostResponse GetDetail(@PathVariable long id) {
+        return _postService.GetDetails(id);
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Post> Create(@RequestBody Post post) {
-        return new ResponseEntity<Post>(post, HttpStatus.CREATED);
+    public ResponseEntity<PostResponse> Create(@RequestBody CreateEditPostRequest dto) {
+        PostResponse createPost = _postService.Create(dto);
+        return new ResponseEntity<>(createPost, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Post> Edit(@RequestBody Post post, @PathVariable int id) {
-
-        Post newPost = new Post(5, 5, "this is old title", "content", false, new Date(), new Date());
-
-        newPost.setTitle(post.getTitle());
-        newPost.setContent(post.getContent());
-        newPost.setHasMedia(post.isHasMedia());
-        newPost.setUpdatedAt(new Date());
-
-        return new ResponseEntity<Post>(newPost, HttpStatus.ACCEPTED);
+    public ResponseEntity<PostResponse> Edit(@PathVariable long id, @RequestBody CreateEditPostRequest dto) {
+        PostResponse updatedPost = _postService.Edit(id, dto);
+        return new ResponseEntity<>(updatedPost, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Post>> Delete(@PathVariable int id) {
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post(0, 1, "this is title", "content", false, new Date(), new Date()));
-        posts.add(new Post(1, 1, "this is title", "content", false, new Date(), new Date()));
-        posts.add(new Post(2, 1, "this is title", "content", false, new Date(), new Date()));
-        //by index
-        posts.remove(id);
-        System.out.println(posts);
-        return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
+    public ResponseEntity<String> Delete(@PathVariable long id) {
+        _postService.Delete(id);
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
     }
 
 }

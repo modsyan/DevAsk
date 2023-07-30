@@ -2,6 +2,9 @@ package com.trainning.springapp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import java.util.Date;
 
 //@Table(name = "Comments")
@@ -10,13 +13,13 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-class Comment {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private long Id;
 
-    private String UserId;
-    private String PostId;
+    private long UserId;
+    private long PostId;
 
     @Setter
     private String Content;
@@ -24,6 +27,8 @@ class Comment {
     @Setter
     private boolean HasMedia;
 
+    @CreatedDate
     private Date CreatedAt;
+    @LastModifiedDate
     private Date UpdatedAt;
 }
