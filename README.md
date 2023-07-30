@@ -1,2 +1,2 @@
 # SocialNetwoks-SpringBoot
-Simple Social Media Application Using Spring Boot
+Simple Stack Overflow Clone Using Spring Boot
