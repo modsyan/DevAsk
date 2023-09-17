@@ -4,20 +4,17 @@ import com.devAsk.api.entity.File;
 import com.devAsk.api.entity.Question;
 import com.devAsk.api.entity.Solution;
 import com.devAsk.api.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class UserResponse {
+public class UserDetailResponse {
 
     private long Id;
 
@@ -29,6 +26,18 @@ public class UserResponse {
 
     private String email;
 
+    private String bio;
+
     private File profilePicture;
+
+    private List<Question> questions;
+
+    private List<Solution> solutions;
+
+    private Role role;
+
+    private Date CreatedAt;
+
+    private Date UpdatedAt;
 
 }

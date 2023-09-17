@@ -1,5 +1,6 @@
 package com.devAsk.api.entity;
 
+import com.devAsk.api.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,26 +8,17 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
-//@Table(name = "Comments")
-@Table
-@Getter
+@Table(name = "comments")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+public class Comment extends BaseEntity {
 
     @OneToOne
     private User User;
 
-    @Setter
     private String Content;
 
-    @CreatedDate
-    private Date CreatedAt;
-
-    @LastModifiedDate
-    private Date UpdatedAt;
 }

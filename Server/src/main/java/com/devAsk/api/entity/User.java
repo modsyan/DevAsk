@@ -1,28 +1,30 @@
 package com.devAsk.api.entity;
 
+import com.devAsk.api.entity.base.BaseEntity;
+import com.devAsk.api.enums.Role;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 
-//@Table(name = "Users")
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    private long id;
+public class User extends BaseEntity implements UserDetails {
 
     @Column(nullable = false)
     private String firstname;
@@ -31,7 +33,7 @@ public class User {
     private String lastname;
 
     @Column(nullable = false)
-    private String hashedPassword;
+    private String password;
 
     @Column(unique = true)
     private String username;
@@ -50,14 +52,31 @@ public class User {
     @OneToMany
     private List<Solution> solutions;
 
-    @DateTimeFormat
-    @Setter(AccessLevel.NONE)
-    @CreatedDate
-    private Date createdAt;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @DateTimeFormat
-    @Setter(AccessLevel.NONE)
-    @LastModifiedDate
-    private Date updateAt;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
+    }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

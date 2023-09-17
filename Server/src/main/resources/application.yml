@@ -14,3 +14,14 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  security:
+    jwt: # for development
+      token:
+        secret-key: "MgyLnjxPS6VjIKsmMzhF4U8kiBsilFAU"
+        expiration-in-seconds: 86400000
+        issuer: ""
+        audience: ""
+        refresh-token:
+          expiration-in-seconds: 604800000
