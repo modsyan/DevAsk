@@ -4,10 +4,11 @@ import com.devAsk.api.dto.request.RegisterUserRequest;
 import com.devAsk.api.dto.request.LoginUserRequest;
 
 import com.devAsk.api.dto.response.AuthUserResponse;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import java.util.concurrent.Future;
 
-public interface AuthService {
+public interface AuthService  {
 
     Future<AuthUserResponse> Register(RegisterUserRequest dto);
 

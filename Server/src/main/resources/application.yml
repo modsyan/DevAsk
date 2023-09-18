@@ -19,7 +19,7 @@ application:
   security:
     jwt: # for development
       token:
-        secret-key: "MgyLnjxPS6VjIKsmMzhF4U8kiBsilFAU"
+        secret-key: "3fae524f16942d00e2cea83e89c7e13d57f7598b66e9341fcf312eeaa8479baa"
         expiration-in-seconds: 86400000
         issuer: ""
         audience: ""

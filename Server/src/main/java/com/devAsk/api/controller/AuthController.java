@@ -29,7 +29,7 @@ public class AuthController {
             @RequestBody(required = true)
             RegisterUserRequest dto
     ) {
-        var createdUser = _authService.Register(dto);
+        var createdUser = _authService.Register(dto).resultNow();
         return ApiResult.Ok("Logged Successfully", createdUser);
     }
 
@@ -38,7 +38,7 @@ public class AuthController {
             @RequestBody(required = false)
             LoginUserRequest dto
     ) {
-        var loggedUser = _authService.Login(dto);
+        var loggedUser = _authService.Login(dto).resultNow();
         return ApiResult.Ok("Logged Successfully", loggedUser);
     }
 

@@ -39,7 +39,7 @@ public class JwtServiceImpl implements JwtService {
         return ClaimResolver.apply(claims);
     }
 
-    public String getUsernameClaims(String token) {
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -85,7 +85,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        var username = getUsernameClaims(token);
+        var username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
