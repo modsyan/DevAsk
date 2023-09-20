@@ -1,13 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Router';
+
+const queryClient = new QueryClient();
 
 export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello World!</p>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </>
   );
 };
