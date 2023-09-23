@@ -15,11 +15,10 @@ public class ApiResult implements Serializable {
 
     private Boolean success;
     private String message;
-    private int code;
     private Object data;
 
     public static ResponseEntity<ApiResult> Result(boolean success, String message, Object data, HttpStatus statusCode) {
-        return new ResponseEntity<>(ApiResult.builder().message(message).code(200).data(data).success(true).build(), statusCode);
+        return new ResponseEntity<>(ApiResult.builder().message(message).data(data).success(true).build(), statusCode);
     }
 
     public static ResponseEntity<ApiResult> Ok(String message, Object data) {

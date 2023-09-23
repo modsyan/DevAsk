@@ -7,6 +7,10 @@ import com.devAsk.api.service.QuestionService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,41 +26,55 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService _questionService;
 
-    @GetMapping
-    public ResponseEntity<List<QuestionResponse>> GetAll() {
-        //        List<QuestionResponse> response = _questionService.GetAll();
-        //        return new ResponseEntity<>(response, HttpStatus.OK);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+//    @GetMapping(params = {"page", "size"})
+//    public ResponseEntity<ApiResult> GetAll(@RequestParam("page") int page, @RequestParam("size") int size, ) {
+//        return ApiResult.Ok("success", _questionService.GetAll());
+//    }
+
+//    @GetMapping
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<ApiResult> GetAll(
+            @RequestParam("page")
+            int page,
+            @RequestParam("size")
+            int size,
+            @SortDefault(
+                    sort = "createdAt",
+                    direction = Sort.Direction.DESC
+            )
+            @PageableDefault(size = 5)
+            final Pageable pageable
+    ) {
+        return ApiResult.Ok("success", _questionService.GetAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public QuestionResponse GetDetail(
+    public ResponseEntity<ApiResult> GetDetail(
             @PathVariable
             long id
     ) {
-        return _questionService.GetDetails(id);
+        return ApiResult.Ok("success", _questionService.GetDetails(id));
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<QuestionResponse> Create(
+    public ResponseEntity<ApiResult> Create(
             @RequestBody
             CreateEditQuestionRequest dto
     ) {
         QuestionResponse createPost = _questionService.Create(dto);
-        return new ResponseEntity<>(createPost, HttpStatus.CREATED);
+        return ApiResult.Created("Question Created Successfully", createPost);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<QuestionResponse> Edit(
+    public ResponseEntity<ApiResult> Edit(
             @PathVariable
             long id,
             @RequestBody
             CreateEditQuestionRequest dto
     ) {
-        QuestionResponse updatedPost = _questionService.Edit(id, dto);
-        return new ResponseEntity<>(updatedPost, HttpStatus.ACCEPTED);
+        return ApiResult.Ok("Response is edited", _questionService.Edit(id, dto));
     }
 
     @DeleteMapping("/{id}")
@@ -68,5 +86,4 @@ public class QuestionController {
         _questionService.Delete(id);
         return ApiResult.Ok("Deleted Successfully");
     }
-
 }

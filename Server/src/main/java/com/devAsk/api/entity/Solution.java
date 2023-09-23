@@ -4,6 +4,7 @@ package com.devAsk.api.entity;
 import com.devAsk.api.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @Builder
 @Table(name = "solutions")
+@SQLDelete(sql = "UPDATE solutions SET deleted = true WHERE id=?")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Solution extends BaseEntity {

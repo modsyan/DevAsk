@@ -4,7 +4,7 @@ import com.devAsk.api.entity.base.BaseEntity;
 import com.devAsk.api.enums.TokenType;
 import jakarta.persistence.*;
 import lombok.*;
-
+import org.hibernate.annotations.SQLDelete;
 
 
 @EqualsAndHashCode(callSuper = true)

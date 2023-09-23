@@ -1,5 +1,6 @@
 package com.devAsk.api.dto.response;
 
+import com.devAsk.api.entity.User;
 import lombok.*;
 
 import java.util.Date;
@@ -8,11 +9,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionResponse {
-    private long Id;
-    private long UserId;
-    private String Title;
-    private String Content;
-    private boolean HasMedia;
-    private Date CreatedAt;
-    private Date UpdatedAt;
+    private long id;
+//    private long userId;
+    private UserResponse user;
+    private String title;
+    private String content;
+    private Date createdAt;
+    private Date updatedAt;
 }

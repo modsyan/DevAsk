@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CreateEditQuestionRequest {
-    private String Title;
-    private String Content;
-    private boolean HasMedia;
+    private String title;
+    private String content;
 }

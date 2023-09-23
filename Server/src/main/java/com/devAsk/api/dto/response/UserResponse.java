@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 public class UserResponse {
 
-    private long Id;
+    private long id;
 
     private String firstname;
 
