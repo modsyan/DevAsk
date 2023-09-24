@@ -1,21 +1,29 @@
 package com.devAsk.api.dto.response;
 
-import com.devAsk.api.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentResponse {
+public class QuestionDetailResponse {
     private long id;
 
-    private UserResponse User;
+    private UserResponse user;
 
-    private String Content;
+    private List<SolutionResponse> solutions;
+
+    private String title;
+
+    private String content;
+
+    private List<CommentResponse> comments;
+
+    private List<UserResponse> votes;
 
     private Date createdAt;
 

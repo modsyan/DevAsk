@@ -1,23 +1,19 @@
 package com.devAsk.api.controller;
 
-import com.devAsk.api.dto.request.CreateEditQuestionRequest;
+import com.devAsk.api.dto.request.QuestionRequest;
 import com.devAsk.api.dto.response.QuestionResponse;
+import com.devAsk.api.enums.PaginationDefaults;
 import com.devAsk.api.model.ApiResult;
 import com.devAsk.api.service.QuestionService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/questions")
@@ -31,21 +27,41 @@ public class QuestionController {
 //        return ApiResult.Ok("success", _questionService.GetAll());
 //    }
 
-//    @GetMapping
-    @GetMapping(params = {"page", "size"})
+    //    @GetMapping
+    @GetMapping
     public ResponseEntity<ApiResult> GetAll(
-            @RequestParam("page")
-            int page,
-            @RequestParam("size")
-            int size,
-            @SortDefault(
-                    sort = "createdAt",
-                    direction = Sort.Direction.DESC
+            @RequestParam(
+                    value = "page",
+                    defaultValue = PaginationDefaults.DEFAULT_PAGE_NUMBER,
+                    required = false
             )
-            @PageableDefault(size = 5)
-            final Pageable pageable
+            int page,
+            @RequestParam(
+                    value = "size",
+                    defaultValue = PaginationDefaults.DEFAULT_PAGE_SIZE,
+                    required = false
+            )
+            int size,
+            @RequestParam(
+                    value = "sortBy",
+                    defaultValue = PaginationDefaults.DEFAULT_SORT_BY,
+                    required = false
+            )
+            String sortBy,
+            @RequestParam(
+                    value = "sortDir",
+                    defaultValue = PaginationDefaults.DEFAULT_SORT_DIRECTION,
+                    required = false
+            )
+            String sortDir
+
     ) {
-        return ApiResult.Ok("success", _questionService.GetAll(pageable));
+        Sort.Direction dir = Objects.equals(sortDir, "asc")
+                ? Sort.Direction.ASC
+                : Sort.Direction.DESC;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(dir, sortBy));
+        return ApiResult.Ok("success", _questionService.getAll(pageable));
     }
 
     @GetMapping("/{id}")
@@ -53,16 +69,16 @@ public class QuestionController {
             @PathVariable
             long id
     ) {
-        return ApiResult.Ok("success", _questionService.GetDetails(id));
+        return ApiResult.Ok("success", _questionService.getDetails(id));
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ApiResult> Create(
             @RequestBody
-            CreateEditQuestionRequest dto
+            QuestionRequest dto
     ) {
-        QuestionResponse createPost = _questionService.Create(dto);
+        QuestionResponse createPost = _questionService.create(dto);
         return ApiResult.Created("Question Created Successfully", createPost);
     }
 
@@ -72,17 +88,16 @@ public class QuestionController {
             @PathVariable
             long id,
             @RequestBody
-            CreateEditQuestionRequest dto
+            QuestionRequest dto
     ) {
-        return ApiResult.Ok("Response is edited", _questionService.Edit(id, dto));
+        return ApiResult.Ok("Response is edited", _questionService.edit(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ApiResult> Delete(
             @PathVariable
             long id
-    ) {
+    ) throws IllegalAccessException {
         _questionService.Delete(id);
         return ApiResult.Ok("Deleted Successfully");
     }

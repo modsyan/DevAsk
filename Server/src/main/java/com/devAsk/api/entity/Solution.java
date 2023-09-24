@@ -5,6 +5,7 @@ import com.devAsk.api.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -24,10 +25,15 @@ import java.util.Set;
 public class Solution extends BaseEntity {
 
     @ManyToOne
+    @Lazy
     private User user;
 
+    @ManyToOne
+    private Question question;
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String content;
 
     @OneToMany

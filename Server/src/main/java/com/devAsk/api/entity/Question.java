@@ -4,6 +4,7 @@ import com.devAsk.api.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,6 +34,9 @@ public class Question extends BaseEntity {
 
     @OneToMany
     private List<Comment> comments;
+
+    @OneToMany
+    private List<Solution> solutions;
 
     @OneToMany
     private Set<User> votes;

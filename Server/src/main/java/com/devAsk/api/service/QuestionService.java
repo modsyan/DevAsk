@@ -1,6 +1,7 @@
 package com.devAsk.api.service;
 
-import com.devAsk.api.dto.request.CreateEditQuestionRequest;
+import com.devAsk.api.dto.request.QuestionRequest;
+import com.devAsk.api.dto.response.QuestionDetailResponse;
 import com.devAsk.api.dto.response.QuestionResponse;
 import org.springframework.data.domain.Pageable;
 
@@ -8,14 +9,13 @@ import java.util.List;
 
 public interface QuestionService {
 
-    QuestionResponse GetDetails(long id);
+    QuestionDetailResponse getDetails(long id);
 
+    List<QuestionResponse> getAll(Pageable pageable);
 
-    List<QuestionResponse> GetAll(Pageable pageable);
+    QuestionResponse create(QuestionRequest dto);
 
-    QuestionResponse Create(CreateEditQuestionRequest dto);
+    QuestionResponse edit(long id, QuestionRequest dto);
 
-    QuestionResponse Edit(long id, CreateEditQuestionRequest dto);
-
-    void Delete(long id);
+    void Delete(long id) throws IllegalAccessException;
 }

@@ -1,8 +1,9 @@
 package com.devAsk.api.mapper;
 
 
+import com.devAsk.api.dto.request.QuestionRequest;
+import com.devAsk.api.dto.response.QuestionDetailResponse;
 import com.devAsk.api.entity.Question;
-import com.devAsk.api.dto.request.CreateEditQuestionRequest;
 import com.devAsk.api.dto.response.QuestionResponse;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -16,9 +17,8 @@ import org.mapstruct.factory.Mappers;
 public interface QuestionMapper {
     QuestionMapper INSTANCE = Mappers.getMapper(QuestionMapper.class);
 
-    Question createEditPostRequestToPost(CreateEditQuestionRequest dto);
+    Question requestToQuestion(QuestionRequest dto);
 
-    QuestionResponse questionToCreateEditQuestionResponse(Question question);
-
-    QuestionResponse questionToQuestionResponse(Question question);
+    QuestionResponse questionToResponse(Question question);
+    QuestionDetailResponse questionToResponseDetail (Question question);
 }

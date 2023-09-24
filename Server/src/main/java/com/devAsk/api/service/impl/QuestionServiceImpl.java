@@ -1,9 +1,10 @@
 package com.devAsk.api.service.impl;
 
+import com.devAsk.api.dto.request.QuestionRequest;
+import com.devAsk.api.dto.response.QuestionDetailResponse;
 import com.devAsk.api.entity.User;
 import com.devAsk.api.exception.EntityNotFoundException;
 import com.devAsk.api.entity.Question;
-import com.devAsk.api.dto.request.CreateEditQuestionRequest;
 import com.devAsk.api.dto.response.QuestionResponse;
 import com.devAsk.api.mapper.QuestionMapper;
 import com.devAsk.api.repository.QuestionRepository;
@@ -22,8 +23,8 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
 
     //TODO: NEED A Mapper Framework Here
-    private final QuestionRepository _questionRepository;
-    private final QuestionMapper _questionMapper;
+    private final QuestionRepository questionRepository;
+    private final QuestionMapper questionMapper;
     private final UserService userService;
 
 //    @Autowired
@@ -35,55 +36,65 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     @Override
-    public QuestionResponse GetDetails(long id) {
-        Question question = _questionRepository
+    public QuestionDetailResponse getDetails(long id) {
+        Question question = questionRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Post with this id Not Found."));
-        return _questionMapper.questionToQuestionResponse(question);
+        return questionMapper.questionToResponseDetail(question);
     }
 
     @Override
-    public List<QuestionResponse> GetAll(Pageable pageable) {
-        return _questionRepository
+    public List<QuestionResponse> getAll(Pageable pageable) {
+        return questionRepository
                 .findAll(pageable)
                 .getContent()
                 .stream()
-                .map(_questionMapper::questionToQuestionResponse)
+                .map(questionMapper::questionToResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public QuestionResponse Create(CreateEditQuestionRequest dto) {
-        Question question = QuestionMapper.INSTANCE.createEditPostRequestToPost(dto);
+    public QuestionResponse create(QuestionRequest dto) {
+        Question question = QuestionMapper.INSTANCE.requestToQuestion(dto);
 
         User user = (User) userService
                 .userDetailsService()
                 .loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         question.setUser(user);
-        Question newQuestion = _questionRepository.save(question);
-        return _questionMapper.questionToCreateEditQuestionResponse(newQuestion);
+        Question newQuestion = questionRepository.save(question);
+        return questionMapper.questionToResponse(newQuestion);
     }
 
     @Override
-    public QuestionResponse Edit(long id, CreateEditQuestionRequest dto) {
+    public QuestionResponse edit(long id, QuestionRequest dto) {
 
-        Question question = _questionRepository
+        Question question = questionRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Post with this ID not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Question with this ID not found"));
         question.setTitle(dto.getTitle());
         question.setContent(dto.getContent());
+
         //TODO: Trigger here if has media changed must remove all cascading images related with post_id
 
-        Question updatedQuestion = _questionRepository.save(question);
-        return _questionMapper.questionToCreateEditQuestionResponse(updatedQuestion);
+        Question updatedQuestion = questionRepository.save(question);
+        return questionMapper.questionToResponse(updatedQuestion);
     }
 
     @Override
-    public void Delete(long id) {
-        Question question = _questionRepository
+    public void Delete(long id) throws IllegalAccessException {
+        Question question = questionRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Failed, Question not found to deleted"));
-        _questionRepository.delete(question);
+
+        User user = (User) userService
+                .userDetailsService()
+                .loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        if (question.getUser().getId() != user.getId()) {
+            throw new IllegalAccessException("You are not authorized to edit this solution");
+        }
+
+        questionRepository.delete(question);
     }
 }
