@@ -1,29 +1,36 @@
-const { POSTCSS_MODES } = require('@craco/craco');
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 
-const path = require('path');
+import { resolve } from 'path';
+import { plugins } from './postcss.config';
 
-module.exports = {
-  style: {
-    postcss: {
-      // plugins: [
-      //   require('tailwindcss')('./tailwind.config'),
-      //   require('autoprefixer'),
-      // ],
-      mode: POSTCSS_MODES.file,
+export const style = {
+  postcss: {
+    mode: 'extends',
+    plugins: [
+      require('tailwindcss')('./tailwind.config'),
+      require('autoprefixer'),
+    ].concat(plugins),
+
+    env: {
+      autoprefixer: {},
+      stage: 3,
+      feature: {},
     },
+    // loaderOptions: {},
+    // loaderOptions: (postcssLoaderOptions, {env, paths}) => {
+    // },
   },
-
-  eslint: {
-    enable: false,
-  },
-
-  webpack: {
-    alias: {
-      '@features': path.resolve(__dirname, 'src/features'),
-      '@views': path.resolve(__dirname, 'src/views'),
-      '@layouts': path.resolve(__dirname, 'src/layouts'),
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@constants': path.resolve(__dirname, 'src/constants'),
-    },
+};
+export const eslint = {
+  enable: false,
+};
+export const webpack = {
+  alias: {
+    '@features': resolve(__dirname, 'src/features'),
+    '@views': resolve(__dirname, 'src/views'),
+    '@layouts': resolve(__dirname, 'src/layouts'),
+    '@components': resolve(__dirname, 'src/components'),
+    '@constants': resolve(__dirname, 'src/constants'),
   },
 };

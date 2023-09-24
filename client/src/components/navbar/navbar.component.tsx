@@ -7,7 +7,7 @@ export const NavBar = () => {
   return (
     <>
       <StyledDiv>
-        <div className="flex justify-between items-center py-2 px-3 bg-zinc-600">
+        <div className="flex justify-between items-center py-2 px-3">
           <Logo />
           <NavbarLinks />
           <AuthButtons />

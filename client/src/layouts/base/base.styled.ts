@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const BodyWrapper = styled.div`
-
+export const StyledDiv = styled.div`
+  background: ${({ theme }) => theme.colors.brand[900]};
+  min-height: 100vh;
 `;
