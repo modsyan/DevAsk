@@ -1,18 +1,18 @@
 package com.devAsk.api.service;
 
 import com.devAsk.api.dto.request.SolutionRequest;
-import com.devAsk.api.dto.response.SolutionResponse;
+import com.devAsk.api.dto.response.SolutionDetailResponse;
 
 import java.util.List;
 
 public interface SolutionService {
-    SolutionResponse getDetail(long id);
+    SolutionDetailResponse getDetail(long id);
 
-    List<SolutionResponse> getAllFromQuestion(long questionId);
+    List<SolutionDetailResponse> getAllFromQuestion(long questionId);
 
-    SolutionResponse create(SolutionRequest dto);
+    SolutionDetailResponse create(SolutionRequest dto);
 
-    SolutionResponse edit(long id, SolutionRequest dto) throws IllegalAccessException;
+    SolutionDetailResponse edit(long id, SolutionRequest dto) throws IllegalAccessException;
 
     void delete(long id) throws IllegalAccessException;
 }

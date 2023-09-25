@@ -1,7 +1,6 @@
 package com.devAsk.api.controller;
 
 import com.devAsk.api.dto.request.SolutionRequest;
-import com.devAsk.api.dto.response.SolutionResponse;
 import com.devAsk.api.model.ApiResult;
 import com.devAsk.api.service.SolutionService;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +34,7 @@ public class SolutionController {
             @RequestBody
             SolutionRequest dto
     ) {
-        SolutionResponse createSolution = solutionService.create(dto);
-        return ApiResult.Created("Solution added successfully", createSolution);
+        return ApiResult.Created("Solution added successfully", solutionService.create(dto));
     }
 
     @PatchMapping("/{id}")

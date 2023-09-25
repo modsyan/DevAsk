@@ -1,11 +1,12 @@
 package com.devAsk.api.service.impl;
 
 import com.devAsk.api.dto.request.SolutionRequest;
-import com.devAsk.api.dto.response.SolutionResponse;
+import com.devAsk.api.dto.response.SolutionDetailResponse;
 import com.devAsk.api.entity.Question;
 import com.devAsk.api.entity.Solution;
 import com.devAsk.api.entity.User;
 import com.devAsk.api.exception.EntityNotFoundException;
+import com.devAsk.api.mapper.QuestionMapper;
 import com.devAsk.api.mapper.SolutionMapper;
 import com.devAsk.api.repository.QuestionRepository;
 import com.devAsk.api.repository.SolutionRepository;
@@ -25,10 +26,11 @@ public class SolutionServiceImpl implements SolutionService {
     private final SolutionRepository solutionRepository;
     private final QuestionRepository questionRepository;
     private final SolutionMapper solutionMapper;
+    private final QuestionMapper questionMapper;
     private final UserService userService;
 
     @Override
-    public SolutionResponse getDetail(long id) {
+    public SolutionDetailResponse getDetail(long id) {
         Solution solution = solutionRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("That solution not found."));
@@ -36,7 +38,7 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public List<SolutionResponse> getAllFromQuestion(long questionId) {
+    public List<SolutionDetailResponse> getAllFromQuestion(long questionId) {
         return solutionRepository
                 .findSolutionsByQuestionId(questionId)
                 .stream()
@@ -45,7 +47,7 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public SolutionResponse create(SolutionRequest dto) {
+    public SolutionDetailResponse create(SolutionRequest dto) {
 
         Question question = questionRepository
                 .findById(dto.getQuestionId())
@@ -62,17 +64,11 @@ public class SolutionServiceImpl implements SolutionService {
         solution.setQuestion(question);
 
         Solution newSolution = solutionRepository.save(solution);
-
-//        var questionSolution = question.getSolutions();
-//        questionSolution.add(solution);
-//        question.setSolutions(questionSolution);
-//        questionRepository.save(question);
-
         return solutionMapper.solutionToResponse(newSolution);
     }
 
     @Override
-    public SolutionResponse edit(long id, SolutionRequest dto) throws IllegalAccessException {
+    public SolutionDetailResponse edit(long id, SolutionRequest dto) throws IllegalAccessException {
         Solution solution = solutionRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Solution with this id not found."));

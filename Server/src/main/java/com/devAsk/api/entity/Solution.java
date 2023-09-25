@@ -24,12 +24,13 @@ import java.util.Set;
 @AllArgsConstructor
 public class Solution extends BaseEntity {
 
-    @ManyToOne
-    @Lazy
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
     private Question question;
+
     @Column(nullable = false)
     private String title;
 

@@ -10,10 +10,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SolutionResponse {
+public class SolutionDetailResponse {
     private long id;
 
     private UserResponse user;
+
+    private QuestionResponse question;
 
     private String title;
 

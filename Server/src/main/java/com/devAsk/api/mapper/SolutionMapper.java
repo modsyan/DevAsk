@@ -1,7 +1,7 @@
 package com.devAsk.api.mapper;
 
 import com.devAsk.api.dto.request.SolutionRequest;
-import com.devAsk.api.dto.response.SolutionResponse;
+import com.devAsk.api.dto.response.SolutionDetailResponse;
 import com.devAsk.api.entity.Solution;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -15,5 +15,5 @@ import org.mapstruct.factory.Mappers;
 public interface SolutionMapper {
     SolutionMapper INSTANCE = Mappers.getMapper(SolutionMapper.class);
     Solution requestToSolution(SolutionRequest dto);
-    SolutionResponse solutionToResponse(Solution solution);
+    SolutionDetailResponse solutionToResponse(Solution solution);
 }

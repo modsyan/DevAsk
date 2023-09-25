@@ -1,11 +1,8 @@
 package com.devAsk.api.mapper;
 
 import com.devAsk.api.dto.request.CommentRequest;
-import com.devAsk.api.dto.request.SolutionRequest;
 import com.devAsk.api.dto.response.CommentResponse;
-import com.devAsk.api.dto.response.SolutionResponse;
 import com.devAsk.api.entity.Comment;
-import com.devAsk.api.entity.Solution;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

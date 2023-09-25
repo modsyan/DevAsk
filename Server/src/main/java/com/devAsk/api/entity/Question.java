@@ -35,7 +35,7 @@ public class Question extends BaseEntity {
     @OneToMany
     private List<Comment> comments;
 
-    @OneToMany
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Solution> solutions;
 
     @OneToMany
