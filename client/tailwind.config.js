@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
-// export const content = ['./src/**/*.{js,jsx,ts,tsx}'];
+// import Typography from '@tailwindcss/typography';
+import LineClamp from '@tailwindcss/line-clamp';
+import Typography from '@tailwindcss/typography';
+
 export const content = ['./index.html', './src/**/*.{js,jsx,ts,tsx}'];
 
 export const theme = {
@@ -26,5 +29,4 @@ export const theme = {
   },
 };
 
-// eslint-disable-next-line no-undef
-export const plugins = [require('@tailwindcss/typography')];
+export const plugins = [Typography, LineClamp];
