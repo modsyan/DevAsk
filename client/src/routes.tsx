@@ -4,6 +4,8 @@ import { createBrowserRouter } from 'react-router-dom';
 // import { Home } from '@views/home';
 import { Login, Register } from '@views/auth';
 import { Home } from '@views/home';
+import { Test } from './Test.tsx';
+import { Feed, QuestionDetails } from '@features/questions/index.ts';
 
 // import {Login, Register} from './views/auth'
 // import { Home } from './views/home'
@@ -24,6 +26,21 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+    errorElement: <h1>Error Page</h1>,
+  },
+  {
+    path: '/feed',
+    element: <Feed />,
+    errorElement: <h1>Error Page</h1>,
+  },
+  {
+    path: '/questions/:id',
+    element: <QuestionDetails />,
+    errorElement: <h1>Error Page</h1>,
+  },
+  {
+    path: '/test',
+    element: <Test />,
     errorElement: <h1>Error Page</h1>,
   },
 ]);

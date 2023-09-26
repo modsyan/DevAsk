@@ -1,0 +1,62 @@
+{
+    "questions": {
+      
+        "success": true,
+        "message": "success",
+        "data": {
+            "id": 23,
+            "user": {
+                "id": 12,
+                "firstname": "Muhammad",
+                "lastname": "Hamdy",
+                "username": "modclover7@gmail.com",
+                "email": "modclover7@gmail.com",
+                "profilePicture": null
+            },
+            "solutions": [
+                {
+                    "id": 5,
+                    "user": {
+                        "id": 12,
+                        "firstname": "Muhammad",
+                        "lastname": "Hamdy",
+                        "username": "modclover7@gmail.com",
+                        "email": "modclover7@gmail.com",
+                        "profilePicture": null
+                    },
+                    "title": "first Solution Tilte",
+                    "content": "Content String",
+                    "comments": [],
+                    "votes": [],
+                    "createdAt": "2023-09-25T14:42:08.117+00:00",
+                    "updatedAt": "2023-09-25T14:42:08.117+00:00"
+                },
+                {
+                    "id": 6,
+                    "user": {
+                        "id": 12,
+                        "firstname": "Muhammad",
+                        "lastname": "Hamdy",
+                        "username": "modclover7@gmail.com",
+                        "email": "modclover7@gmail.com",
+                        "profilePicture": null
+                    },
+                    "title": "first Solution Tilte",
+                    "content": "Content String",
+                    "comments": [],
+                    "votes": [],
+                    "createdAt": "2023-09-25T14:45:53.230+00:00",
+                    "updatedAt": "2023-09-25T14:45:53.230+00:00"
+                }
+            ],
+            "title": "Post Tilte",
+            "content": "Content String",
+            "comments": [],
+            "votes": [],
+            "createdAt": "2023-09-25T04:31:27.487+00:00",
+            "updatedAt": "2023-09-25T04:31:27.487+00:00"
+        }
+    }
+    
+  }
+  
