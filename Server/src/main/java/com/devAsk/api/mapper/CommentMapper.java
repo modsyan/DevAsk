@@ -15,6 +15,6 @@ import org.mapstruct.factory.Mappers;
 )
 public interface CommentMapper {
     SolutionMapper INSTANCE = Mappers.getMapper(SolutionMapper.class);
-    Comment requestToSolution(CommentRequest dto);
-    CommentResponse solutionToResponse(Comment Comment);
+    Comment requestToComment(CommentRequest dto);
+    CommentResponse commentToResponse(Comment Comment);
 }

@@ -22,6 +22,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.session.SessionManagementFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -36,20 +43,20 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .sessionManagement(manger -> manger.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(manger -> manger.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                         .logoutUrl("/api/v1/auth/logout")
                         .addLogoutHandler(logoutHandler)
                         .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext())))
-
                 .build();
     }
 
@@ -69,5 +76,16 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*"); // Allow all origins (in production, restrict this to your domains)
+        configuration.addAllowedMethod("*"); // Allow all HTTP methods
+        configuration.addAllowedHeader("*"); // Allow all headers
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", configuration); // Apply CORS configuration to specific paths
+        return source;
     }
 }

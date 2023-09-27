@@ -26,16 +26,19 @@ import java.util.Set;
 public class Question extends BaseEntity {
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String title;
 
     private String content;
 
+//    @OneToMany(mappedBy = "questions", cascade = CascadeType.ALL)
     @OneToMany
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+//    @OneToMany
     private List<Solution> solutions;
 
     @OneToMany

@@ -20,8 +20,10 @@ import java.util.Date;
 public class Comment extends BaseEntity {
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User User;
 
+    @Column(nullable = false)
     private String Content;
 
 }

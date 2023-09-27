@@ -25,6 +25,7 @@ import java.util.Set;
 public class Solution extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +38,7 @@ public class Solution extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+//    @OneToMany(mappedBy = "solutions", cascade = CascadeType.ALL)
     @OneToMany
     private List<Comment> comments;
 
