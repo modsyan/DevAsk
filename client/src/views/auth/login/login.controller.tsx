@@ -1,5 +1,1 @@
-type Props = {};
-
-export const Login = () => {
-
-};
+export const Login = () => {};

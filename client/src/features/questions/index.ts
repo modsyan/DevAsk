@@ -1,3 +1,3 @@
-export * from './ask'
-export * from './detail'
-export * from './feed'
+export * from './ask/AskQuestionForm';
+export * from './detail';
+export * from './feed';

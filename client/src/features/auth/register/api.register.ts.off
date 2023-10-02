@@ -1,0 +1,8 @@
+import { RegisterUserRequest } from 'src/DTOs';
+import axiosClient from 'src/utils/axiosClient';
+export const registerUser = async (user: RegisterUserRequest) => {
+  const result = await axiosClient.post(`/auth/register`, user);
+  const { data } = result;
+  if (!data) throw Error('Error happens while registration');
+  return data;
+};

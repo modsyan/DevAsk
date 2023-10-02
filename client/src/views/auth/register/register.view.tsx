@@ -1,18 +1,21 @@
-import { ENDPOINT_CONFIGS } from '@constants/endpoints';
-import { Button, Input } from '@components';
-import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { RegisterForm } from '@features/auth/register';
+import styled from 'styled-components';
+const RegisterLayout = styled.main`
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 60rem;
+  align-content: center;
+  justify-content: center;
+  gap: 3.2rem;
+  background-color: var(--color-grey-900);
+`;
 
-import { RegisterForm } from '@features/auth';
-import { BaseLayout } from '@layouts/base';
-
-type Props = {};
-
-export const Register: React.FC<Props> = () => {
+export const Register = () => {
   return (
-    <BaseLayout>
-      <RegisterForm />
-    </BaseLayout>
+    <>
+      <RegisterLayout>
+        <RegisterForm />
+      </RegisterLayout>
+    </>
   );
 };

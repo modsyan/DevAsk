@@ -1,3 +1,3 @@
-enum CONSTANTS {
+export enum CONSTANTS {
   PAGE_SIZE = 10,
 }

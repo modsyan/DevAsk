@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 
 // import Typography from '@tailwindcss/typography';
-import LineClamp from '@tailwindcss/line-clamp';
-import Typography from '@tailwindcss/typography';
+// import LineClamp from '@tailwindcss/line-clamp';
+// import Typography from '@tailwindcss/typography';
 
 export const content = ['./index.html', './src/**/*.{js,jsx,ts,tsx}'];
 
@@ -29,4 +29,4 @@ export const theme = {
   },
 };
 
-export const plugins = [Typography, LineClamp];
+// export const plugins = [Typography, LineClamp];

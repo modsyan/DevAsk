@@ -1,51 +1,68 @@
-import { MouseEventHandler } from 'react';
-import { StyledButton } from './button.styled';
+import styled, { css } from 'styled-components';
 
-const buttonConfig = {
-  solid: `bg-brand-700  bg-brand-7000 hover:bg-brand-800 text-zinc-50 text-center p-2 rounded-md text-sm`,
-  ghost: `hover:bg-brand-800 text-zinc-50 text-center p-2 rounded-md text-sm`,
+const sizes = {
+  small: css`
+    font-size: 1.4rem;
+    padding: 0.5rem 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+  `,
+  medium: css`
+    font-size: 1.6rem;
+    padding: 1.2rem 1.6rem;
+    font-weight: 500;
+  `,
+  large: css`
+    font-size: 1.8rem;
+    padding: 1.2rem 2.4rem;
+    font-weight: 500;
+  `,
 };
 
-const buttonSize = {
-  sm: `w-[100px] h-[40px]`,
-  md: `w-[180px] h-[40px]`,
-  lg: `w-[240px] h-[40px]`,
-  xl: `w-[300px] h-[40px]`,
+const variations = {
+  primary: css`
+    color: var(--color-brand-50);
+    background-color: var(--color-grey-200);
+    box-shadow: var(--shadow-sm);
+    &:hover {
+      background-color: var(--color-brand-200);
+      color: var(--color-grey-50);
+    }
+  `,
+  secondary: css`
+    color: var(--color-grey-600);
+    background: var(--color-grey-0);
+    border: 1px solid var(--color-grey-200);
+
+    &:hover {
+      background-color: var(--color-grey-50);
+    }
+  `,
+  danger: css`
+    color: var(--color-red-100);
+    background-color: var(--color-red-700);
+
+    &:hover {
+      background-color: var(--color-red-800);
+    }
+  `,
 };
 
-export interface ButtonProps {
-  id?: number;
-  label: string;
-  variant?: 'solid' | 'ghost';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+interface ButtonProps {
+  variation?: 'primary' | 'secondary' | 'danger';
+  size?: 'small' | 'medium' | 'large';
 }
+export const Button = styled.button<ButtonProps>`
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
 
-export const Button: React.FC<ButtonProps> = ({
-  label = 'Button',
-  variant = 'solid',
-  size = 'lg',
-  onClick = () => {
-    console.log('Clicked Button');
-  },
-}) => {
-  const className: string = [
-    `${buttonConfig[variant]}`,
-    `${buttonSize[size]}`,
-    'transition-all',
-    'duration-500',
-    'ease-in-out',
-    'flex',
-    'justify-center',
-    'items-center gap-3',
-  ].join(' ');
+  ${(props) => sizes[props.size ?? 'medium']}
+  ${(props) => variations[props.variation ?? 'primary']}
+`;
 
-  return (
-    <>
-      <StyledButton />
-      <button className={className} onClick={onClick}>
-        {label}
-      </button>
-    </>
-  );
+Button.defaultProps = {
+  variation: 'primary',
+  size: 'medium',
 };

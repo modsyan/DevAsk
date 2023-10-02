@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
-import './text-area.styled'
+import './text-area.styled';
 import { StyledDiv } from './text-area.styled';
 
 export const TextArea: React.FC = () => {
@@ -11,8 +11,7 @@ export const TextArea: React.FC = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setValue(event.target.value);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) =>
-    setPreview(!preview);
+  const handleClick = () => setPreview(!preview);
 
   return (
     <StyledDiv>
@@ -26,7 +25,6 @@ export const TextArea: React.FC = () => {
               'border-none',
               'ring-0',
               'bg-brand-700',
-              'bg-orange-50',
               'resize-none',
               'w-full',
               'h-[300px]',
@@ -56,19 +54,7 @@ export const TextArea: React.FC = () => {
       )}
 
       {!!preview && (
-        <motion.div
-          className={[
-            'bg-brand-900',
-            'flex',
-            'ring-2',
-            'ring-brand-50',
-            'h-[300]px',
-            'overflow-scroll',
-            'rounded-md',
-          ].join(' ')}
-          animate={{ x: -100 }}
-          transition={{ delay: 1 }}
-        >
+        <motion.div className="">
           <ReactMarkdown
             children={value}
             remarkPlugins={[remarkGfm]}

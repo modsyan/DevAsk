@@ -32,7 +32,7 @@ export enum Endpoints {
   voteDown = 'voteDown',
 }
 
-export const baseApiUrl: string = '/api/v1';
+export const baseApiUrl: string = `https://muze-inherited-failing-interval.trycloudflare.com/api/v1`;
 
 export const ENDPOINT_CONFIGS: { [key in Endpoints]: EndpointConfig } = {
   [Endpoints.login]: {
