@@ -8,6 +8,7 @@ import { Test } from './Test.tsx';
 import { Spinner, NotFound } from '@components';
 import { Feed } from '@views/questions/feed/';
 import { QuestionDetails } from '@views/questions/detail/question-detail.view.tsx';
+import { LoginV2 } from '@views/auth/login-v2/login-v2.view.tsx';
 
 // import {Login, Register} from './views/auth'
 // import { Home } from './views/home'
@@ -42,11 +43,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: <Test />,
+    element: <LoginV2 />,
     errorElement: <h1>Error Page</h1>,
   },
   {
     path: '/notfound',
-    element: <NotFound/>
+    element: <NotFound />,
   },
 ]);

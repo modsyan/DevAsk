@@ -8,3 +8,7 @@ export * from './social-media-icons';
 export * from './spinner';
 export * from './text-area';
 export * from './notfound';
+export * from './button-v2';
+export * from './form';
+export * from './input-v2';
+export * from './form/row';
