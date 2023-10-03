@@ -9,6 +9,8 @@ export enum Endpoints {
 
   register = 'register',
 
+  getUserById = 'getUserById',
+
   getQuestions = 'getQuestions',
   getQuestionDetail = 'getQuestionDetail',
   askQuestions = 'askQuestions',
@@ -32,126 +34,134 @@ export enum Endpoints {
   voteDown = 'voteDown',
 }
 
-export const baseApiUrl: string = '/api/v1';
+export const API_URL: string = import.meta.env.DEV
+  ? import.meta.env.VITE_BASE_URL_DEV
+  : import.meta.env.VITE_BASE_URL_PROD;
 
 export const ENDPOINT_CONFIGS: { [key in Endpoints]: EndpointConfig } = {
   [Endpoints.login]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.register]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.getQuestions]: {
-    url: `${baseApiUrl}/login`,
-    method: 'post',
-    auth: false,
+    url: `${API_URL}/questions`,
+    method: 'get',
+    auth: true,
   },
 
   [Endpoints.getQuestionDetail]: {
-    url: `${baseApiUrl}/login`,
-    method: 'post',
-    auth: false,
+    url: `${API_URL}/questions`,
+    method: 'get',
+    auth: true,
   },
 
   [Endpoints.askQuestions]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.deleteQuestions]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.updateQuestions]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'patch',
     auth: true,
   },
 
   [Endpoints.addSolutions]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.getSolutionsDetail]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.getQuestionSolution]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.countQuestionSolution]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.deleteSolutions]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.updateSolution]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'patch',
     auth: true,
   },
 
   [Endpoints.addComments]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.deleteComments]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.getQuestionComments]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.countQuestionComments]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.getCommentDetail]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: false,
   },
 
   [Endpoints.voteUP]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
   },
 
   [Endpoints.voteDown]: {
-    url: `${baseApiUrl}/login`,
+    url: `${API_URL}/login`,
     method: 'post',
     auth: true,
+  },
+  [Endpoints.getUserById]: {
+    // url: `${baseApiUrl}/users/:id`,
+    url: `${API_URL}/users/`,
+    method: 'post',
+    auth: false,
   },
 };

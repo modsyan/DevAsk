@@ -7,7 +7,7 @@ export const Section = (props: {
 }) => {
   return (
     <StyledDiv>
-      <div className={['flex', 'flex-col', 'gap-2', 'h-full'].join(' ')}>
+      <div className={['flex', 'flex-col', 'gap-2', 'h-full', 'flex'].join(' ')}>
         <h1 className={['font-bold', 'text-brand-300'].join(' ')}>
           {props.title}
         </h1>

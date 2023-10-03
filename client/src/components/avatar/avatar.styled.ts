@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const StyledImg =styled.img`
 
+
+export const StyledImg = styled.img`
 `;
-

@@ -1,4 +1,1 @@
-
-export const Feed = () => {
-
-}
+export * from './feed.view'

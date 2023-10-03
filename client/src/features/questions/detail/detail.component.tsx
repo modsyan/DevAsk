@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query';
-import axiosClient from '../../../utils/axiosClient';
+import {axiosClient} from '../../../utils/axiosClient';
 import { Question, QuestionBox } from '../QuestionBox';
 import { useParams } from 'react-router-dom';
 import { Divider } from '@components';
 import { BaseLayout } from '@layouts/base';
+import { ENDPOINT_CONFIGS } from '@constants/endpoints';
 
 const useQuestion = (questionId: string) => {
   const {
@@ -11,14 +12,15 @@ const useQuestion = (questionId: string) => {
     isError,
     data: question,
   } = useQuery([`question-${questionId}`], async () => {
-    const res = await axiosClient.get(`/questions/`);
+    const res = await axiosClient(ENDPOINT_CONFIGS.getQuestionDetail);
     return res.data.data;
   });
   return { isError, isLoading, question: question as Question };
 };
-export const QuestionDetails = () => {
-  const { id } = useParams();
-  const { question, isLoading, isError } = useQuestion(id!);
+export const QuestionDetails = (params: {id: string}) => {
+  // const { id } = useParams();
+
+  const { question, isLoading, isError } = useQuestion(params.id!);
 
   if (isLoading) return <h1>Loading ... </h1>;
   if (isError) return <h1>Error</h1>;

@@ -1,3 +1,4 @@
+import { MdOutlineInsertComment } from 'react-icons/md';
 import { User } from '../QuestionBox';
 
 interface Solution {
@@ -5,6 +6,7 @@ interface Solution {
   user: User;
   title: string;
   content: string;
+  tags: string[];
   comments: [];
   votes: [];
   createdAt: Date;
@@ -15,7 +17,7 @@ export const SolutionBox: React.FC<{
   solution: Solution;
   className?: string;
 }> = ({ solution, className }) => {
-  const { user, title, content, createdAt, votes, comments } = solution;
+  const { user, title, content, createdAt, tags, votes, comments } = solution;
 
   // const { votes } = question;
 
@@ -30,7 +32,9 @@ export const SolutionBox: React.FC<{
         <div className="flex justify-between items-center">
           <header className="flex flex-col gap-4">
             <h1
-              className={`text-lg font-medium hover:text-sky-400 hover:underline transition-all ease-in-out duration-200 hover:transition-all hover:ease-in-out hover:duration-200 hover:text-xl`}
+              className={
+                'text-lg font-medium hover:text-sky-400 hover:underline transition-all ease-in-out duration-200 hover:transition-all hover:ease-in-out hover:duration-200 hover:text-xl'
+              }
             >
               {title}
             </h1>
@@ -43,7 +47,7 @@ export const SolutionBox: React.FC<{
           </header>
           <div className="flex flex-col text-sky-400">
             <span>{0} Votes</span>
-            <span>{question.solutions?.length} Solution</span>
+            <span>{solution.comments.length} Solution</span>
           </div>
         </div>
         {/* Desc - Interaction - Tags */}

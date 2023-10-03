@@ -34,7 +34,7 @@ export const WelcomeCard = () => {
           platform to streamline the entire bug-solving process and empower
           developers like you.
         </p>
-        <Link to={'/questions'}>
+        <Link to={'/feed'}>
           <button
             className={[
               'bg-brand-700',

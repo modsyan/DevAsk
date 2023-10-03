@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
-import axiosClient from '../utils/axiosClient';
+import { axiosClient } from '../utils/axiosClient';
+import { ENDPOINT_CONFIGS } from '@constants/endpoints';
 
 export const useGetUser = (userId: string | number) => {
   const {
@@ -9,7 +10,10 @@ export const useGetUser = (userId: string | number) => {
   } = useQuery(
     [`user-${userId}`],
     async () => {
-      const res = await axiosClient.get(`/users/${userId}`);
+      const getUserByIdWithParamsConfig = ENDPOINT_CONFIGS.getUserById;
+      getUserByIdWithParamsConfig.url =
+        getUserByIdWithParamsConfig.url + userId;
+      const res = await axiosClient(getUserByIdWithParamsConfig);
       return res.data;
     },
     { retry: false }

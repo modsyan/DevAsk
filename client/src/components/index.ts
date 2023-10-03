@@ -7,4 +7,4 @@ export * from './navbar';
 export * from './social-media-icons';
 export * from './spinner';
 export * from './text-area';
-export * from '../features/Landing/welcome-card';
+export * from './notfound';

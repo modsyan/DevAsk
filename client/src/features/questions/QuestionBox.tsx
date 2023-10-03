@@ -45,6 +45,7 @@ export interface Question {
 //   FEED = `h-52 `,
 //   DETAILS = ``,
 // }
+
 export const QuestionBox: React.FC<{
   question: Question;
   state: 'feed' | 'details';
